@@ -799,7 +799,11 @@ texttype(Text *t, Rune r)
 	case Kcmd+'Z':	/* %-shift-Z: redo */
 	 	typecommit(t);
 		undo(t, nil, nil, FALSE, 0, nil, 0);
-		return;	
+		return;
+	case Kcmd+'s':  /* %S: save */
+		typecommit(t);
+		put(&t->w->body, nil, nil, XXX, XXX, nil, 0);
+		return;
 
 /*
  *  Adding Windows and X11 -compatible Ctrl+C, Ctrl+Z and
@@ -819,6 +823,10 @@ texttype(Text *t, Rune r)
 	 	typecommit(t);
 		undo(t, nil, nil, FALSE, 0, nil, 0);
 		return;
+	case 0x13:
+		typecommit(t);
+		put(&t->w->body, nil, nil, XXX, XXX, nil, 0);
+		return;	
 
 	Tagdown:
 		/* expand tag to show all text */
